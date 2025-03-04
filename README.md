@@ -2,8 +2,6 @@
 
 ![image](https://github.com/user-attachments/assets/65c0fda2-5ead-431a-b7fd-234fa46a35cb)
 
-# Video Game Sales Forecasting
-
 ## 1. Business Problem
 Amdari has been contacted by a local video-game resale company that needs to optimize its supply chain for video game inventory. Accurate demand forecasting is crucial to avoid overstocking and stockouts. An overestimation of demand leads to bloated inventory and increased costs, while underestimating demand means valuable customers may not receive the products they want. The Data Science Team's goal is to forecast monthly sales for the next four months to aid in decision-making and improve the company’s competitive edge.
 
