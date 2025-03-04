@@ -1,98 +1,89 @@
-# VIDEO_GAMES
+# Video Game Sales Forecasting
 
 ![image](https://github.com/user-attachments/assets/65c0fda2-5ead-431a-b7fd-234fa46a35cb)
 
+# Video Game Sales Forecasting
 
-1. The Business Problem
-Amdari has recently been contacted by a local video-game resale company. Many
-businesses have to be on point when it comes to ordering supplies to meet the demand of its
-customers. An overestimation of demand leads to bloated inventory and high costs.
-Underestimating demand means many valued customers won't get the products they want.
-In order to help plan out the supply with demand for the company's video games, the Data
-Science Team has been tasked with forecasting monthly sales data in order to synchronize
-supply with demand, and aid in decision making that will help build a competitive
-infrastructure and measure the growing company’s performance.
-Your team is being asked to provide a forecast for the next 4 months of sales. Create and
-submit a very detailed report.
+## 1. Business Problem
+Amdari has been contacted by a local video-game resale company that needs to optimize its supply chain for video game inventory. Accurate demand forecasting is crucial to avoid overstocking and stockouts. An overestimation of demand leads to bloated inventory and increased costs, while underestimating demand means valuable customers may not receive the products they want. The Data Science Team's goal is to forecast monthly sales for the next four months to aid in decision-making and improve the company’s competitive edge.
 
-The project involves:
+## 2. Project Overview
+The project involves the following key components:
 
-1. Exploratory Data Analysis (EDA):
+### Exploratory Data Analysis (EDA)
+- **Identify overall sales trends:** Analyze historical sales data to understand growth patterns over time.
+- **Detect seasonality and cyclical patterns:** Investigate recurring sales patterns and fluctuations throughout the year.
+- **Analyze sales by category and platform:** Assess how different game categories and platforms contribute to overall sales.
+- **Assess the impact of holidays and promotions:** Evaluate how holidays and marketing promotions affect sales figures.
+- **Determine the influence of weekdays on sales:** Analyze if sales vary by the day of the week.
 
-Identifying overall sales trends.
-Detecting seasonality and cyclical patterns.
-Analyzing sales by category and platform.
-Assessing the impact of holidays and promotions.
-Determining the influence of weekdays on sales.
+### Predictive Analytics
+- **Utilize ARIMA and SES (Single Exponential Smoothing) and Holt-Winters models for forecasting.**
+- **Evaluate model accuracy and select the best-fitting model.**
+- **Generate four-month sales forecasts.**
 
-2. Predictive Analytics:
+## 3. Steps to Solve the Problem
+1. **Load and clean the dataset:** Prepare the data for analysis by handling missing values and ensuring proper formatting.
+2. **Perform EDA:** Visualize trends, seasonality, and the impact of categories/platforms on sales.
+3. **Apply time series decomposition:** Extract trend, seasonality, and error components from the sales data.
+4. **Build ARIMA and ETS models:** Tune their parameters based on ACF and PACF plots to improve accuracy.
+5. **Compare model performance:** Use error metrics such as RMSE (Root Mean Square Error) and MAPE (Mean Absolute Percentage Error) to assess model effectiveness.
+6. **Select the best model and generate four-month forecasts.**
 
-Using ARIMA and SES,  (Single Exponential Smoothing) and Holt-Winters models for forecasting.
-Evaluating model accuracy and selecting the best-fitting model.
-Generating four-month sales forecasts.
-
-3. Steps to Solve the Problem
-Load and clean the dataset.
-Perform EDA (Visualizing trends, seasonality, category/platform impact, etc.).
-Apply time series decomposition to extract trend, seasonality, and error components.
-Build ARIMA and ETS models, tuning their parameters based on ACF and PACF plots.
-Compare model performance using error metrics (e.g., RMSE, MAPE).
-Select the best model and generate four-month forecasts.
-
-4.Understanding the Dataset
+## 4. Understanding the Dataset
 The dataset contains the following columns:
+- **Category:** The genre of the video game (e.g., Action, Adventure).
+- **Month:** The date (first of each month).
+- **Monthly Sales:** Total sales in that month.
+- **Year:** Extracted year from the date.
+- **DayOfWeek:** The weekday of the first day of the month.
+- **Platform:** The gaming platform (e.g., Xbox, Nintendo, PC, PlayStation).
+- **Holiday:** Binary indicator (1 if a holiday is in that month, 0 otherwise).
+- **Promotion:** Binary indicator (1 if there was a promotion, 0 otherwise).
 
-Category: The genre of the video game.
-Month: The date (first of each month).
-Monthly Sales: Total sales in that month.
-Year: Extracted year from the date.
-DayOfWeek: The weekday of the first day of the month.
-Platform: The gaming platform (e.g., Xbox, Nintendo, PC, PlayStation).
-Holiday: Binary indicator (1 if a holiday is in that month, 0 otherwise).
-Promotion: Binary indicator (1 if there was a promotion, 0 otherwise).
+## 5. Building the Model
 
-5.Building the model
-ARIMA MODEL FORCASTED
-2023-09-01    116317.282605
-2023-10-01    116682.890976
-2023-11-01    113380.775304
-2023-12-01    115998.185396
-Freq: MS, Name: predicted_mean, dtype: float64
-Single Exponential Smoothing (SES) Forecasted
-2023-09-01    114150.35762
-2023-10-01    114150.35762
-2023-11-01    114150.35762
-2023-12-01    114150.35762
-Freq: MS, dtype: float64
+### Forecast Results
 
-Holt-Winter Model forecasted
-2023-09-01     94168.683589
-2023-10-01     87588.086270
-2023-11-01    101041.512820
-2023-12-01    105454.792863
-Freq: MS, dtype: float64
+| Forecast Type         | Month       | Predicted Sales |
+|-----------------------|-------------|------------------|
+| **ARIMA**             | 2023-09-01  | 116317.28        |
+|                       | 2023-10-01  | 116682.89        |
+|                       | 2023-11-01  | 113380.78        |
+|                       | 2023-12-01  | 115998.19        |
+| **Single Exponential Smoothing (SES)** | 2023-09-01  | 114150.36        |
+|                       | 2023-10-01  | 114150.36        |
+|                       | 2023-11-01  | 114150.36        |
+|                       | 2023-12-01  | 114150.36        |
+| **Holt-Winters**      | 2023-09-01  | 94168.68         |
+|                       | 2023-10-01  | 87588.09         |
+|                       | 2023-11-01  | 101041.51        |
+|                       | 2023-12-01  | 105454.79        |
 
-Comparing the models
-          Actual          ARIMA   Holt-Winters           SES
-Month                                                         
-2023-09-01  143373  116317.282605   94168.683589  114150.35762
-2023-10-01  126410  116682.890976   87588.086270  114150.35762
-2023-11-01   91200  113380.775304  101041.512820  114150.35762
-2023-12-01  159721  115998.185396  105454.792863  114150.35762
+### Comparing the Models
+| Month       | Actual  | ARIMA         | Holt-Winters  | SES          |
+|-------------|---------|---------------|----------------|--------------|
+| 2023-09-01  | 143373  | 116317.28     | 94168.68       | 114150.36    |
+| 2023-10-01  | 126410  | 116682.89     | 87588.09       | 114150.36    |
+| 2023-11-01  | 91200   | 113380.78     | 101041.51      | 114150.36    |
+| 2023-12-01  | 159721  | 115998.19     | 105454.79      | 114150.36    |
 
-Holt-Winters performs best as it captures seasonality better.
-ARIMA provides a stable forecast but does not adjust well to sales fluctuations.
-SES produces a constant forecast, making it unsuitable for dynamic sales data.
+### Conclusion
+The Holt-Winters Model was selected as the best forecasting method due to its ability to capture seasonal trends effectively. This forecasting will help synchronize supply with demand, minimizing stockouts and overstock situations.
 
-Final forecast for the four months
-Holt-Winter model is used to predict the next four months because it performed best
-Forecasted Sales
-2024-01-01      94168.683589
-2024-02-01      87588.086270
-2024-03-01     101041.512820
-2024-04-01     105454.792863
+## 6. Final Forecast for the Next Four Months
 
-Conclusion
-Holt-Winters Model was the best choice for forecasting due to clear seasonal trends.
-Forecasting helps synchronize supply with demand, avoiding stockouts and overstock situations.
-Next Steps: Fine-tune models further using hyperparameter tuning or more advanced techniques like Prophet or LSTMs.
+| Month       | Predicted Sales |
+|-------------|------------------|
+| 2024-01-01  | 94168.68         |
+| 2024-02-01  | 87588.09         |
+| 2024-03-01  | 101041.51        |
+| 2024-04-01  | 105454.79        |
+
+## 7. Next Steps
+- Fine-tune models further using hyperparameter tuning.
+- Explore advanced techniques such as Prophet or LSTMs for improved forecasting accuracy.
+- Continuously monitor model performance and update with new data to maintain accuracy.
+
+## 8. References
+- For detailed methodology and theoretical background on ARIMA and Holt-Winters models, refer to relevant literature and statistical textbooks.
