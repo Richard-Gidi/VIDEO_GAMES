@@ -1,36 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Game Sales Forecast</title>
 </head>
 <body>
-    <h1>Video Game Sales Prediction</h1>
+    <h1>Holt Winters Model Sales Forecast</h1>
     <form action="/predict" method="post">
-        <label for="model">Select Model:</label>
-        <select name="model" id="model">
-            {% for model in models %}
-                <option value="{{ model }}">{{ model }}</option>
-            {% endfor %}
-        </select>
+        <label for="start_date">Start Date (YYYY-MM-DD):</label>
+        <input type="date" id="start_date" name="start_date" required>
 
-        <label for="start_date">Select Start Date:</label>
-        <input type="date" name="start_date" required>
-
-        <label for="months">Number of months to forecast:</label>
-        <input type="number" name="months" min="1" max="12" value="3" required>
+        <label for="months">Number of Months:</label>
+        <input type="number" id="months" name="months" min="1" required>
 
         <button type="submit">Generate Forecast</button>
     </form>
-
-    {% if tables %}
-    <h2>📊 Forecast Results</h2>
-    {{ tables|safe }}
-    <br>
-    {% endif %}
-
-    {% if error %}
-    <h2 style="color: red;">⚠️ Error</h2>
-    <p>{{ error }}</p>
-    {% endif %}
 </body>
 </html>
