@@ -1,27 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sales Forecast Results</title>
+    <title>Video Game Sales Forecast</title>
 </head>
 <body>
-    <h1>📊 Forecast Results</h1>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Month</th>
-                <th>Predicted Sales ($)</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for month, sales in forecast %}
-            <tr>
-                <td>{{ month }}</td>
-                <td>{{ sales }}</td>
-            </tr>
+    <h1>🧠 Video Game Sales Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="model">Select Model:</label>
+        <select name="model" id="model">
+            {% for model in models %}
+                <option value="{{ model }}">{{ model }}</option>
             {% endfor %}
-        </tbody>
-    </table>
+        </select>
 
+        <label for="start_date">Select Start Date:</label>
+        <input type="date" name="start_date" required>
+
+        <label for="months">Number of months to forecast:</label>
+        <input type="number" name="months" min="1" max="12" value="3" required>
+
+        <button type="submit">Generate Forecast</button>
+    </form>
+
+    {% if predictions %}
+    <h2>📊 Forecast Results</h2>
+    <table border="1">
+        <tr>
+            <th>Month</th>
+            <th>Predicted Sales ($)</th>
+        </tr>
+        {% for month, sales in predictions %}
+        <tr>
+            <td>{{ month }}</td>
+            <td>{{ sales }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
     <a href="/">🔙 Go Back</a>
+    {% endif %}
 </body>
 </html>
