@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 import plotly.graph_objects as go
 from datetime import datetime, timedelta
-
+from tensorflow.keras.models import load_model
 
 # Load models
 models = {
