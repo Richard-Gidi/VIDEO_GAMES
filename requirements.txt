@@ -15,3 +15,4 @@ statsmodels>=0.14.0
 pmdarima>=2.0.3
 prophet>=1.1.4
 tsfresh>=0.20.0
+tensorflow==2.12.0
