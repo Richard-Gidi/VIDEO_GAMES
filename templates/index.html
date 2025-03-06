@@ -26,7 +26,11 @@
     <h2>📊 Forecast Results</h2>
     {{ tables|safe }}
     <br>
-    <a href="/">🔙 Go Back</a>
+    {% endif %}
+
+    {% if error %}
+    <h2 style="color: red;">⚠️ Error</h2>
+    <p>{{ error }}</p>
     {% endif %}
 </body>
 </html>
