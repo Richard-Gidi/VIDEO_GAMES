@@ -9,7 +9,7 @@ models = {
     'ARIMA': joblib.load('models/arima_model.pkl'),
     'SES': joblib.load('models/ses_model.pkl'),
     "Holt-Winters": joblib.load('models/holt_winters_model.pkl'),
-    'Prophet': joblib.load('models/prophet_data.pkl')
+    'Prophet': joblib.load('models/prophet_model.pkl')  # Ensure this is the trained model
 }
 
 # Set page configuration
@@ -54,8 +54,13 @@ if menu == "Prediction":
 
     if st.button("Generate Forecast"):
         try:
-            forecast = model.forecast(steps=months)
-            predictions = [round(float(x), 2) for x in forecast]
+            if model_choice == 'Prophet':
+                future = model.make_future_dataframe(periods=months * 30, freq='D')
+                forecast = model.predict(future)
+                predictions = forecast.tail(months)['yhat'].tolist()  # Monthly aggregation
+            else:
+                forecast = model.forecast(steps=months)
+                predictions = [round(float(x), 2) for x in forecast]
 
             df_predictions = pd.DataFrame({
                 'Month': [(start_date + timedelta(days=30 * i)).strftime('%Y-%m') for i in range(months)],
