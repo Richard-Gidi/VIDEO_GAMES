@@ -43,7 +43,7 @@ def create_forecast_plot(predictions, start_date):
 
 # Prediction menu
 if menu == "Prediction":
-    st.title("🧠 Video Game Sales Prediction")
+    st.title("🎮🕹️✨ Video Game Sales Prediction")
 
     model_choice = st.selectbox("Select Model", list(models.keys()))
     model = models[model_choice]
