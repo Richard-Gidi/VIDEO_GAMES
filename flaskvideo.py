@@ -1,9 +1,8 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request
 import joblib
 import pandas as pd
 from datetime import datetime, timedelta
 import plotly.graph_objects as go
-from io import BytesIO
 
 app = Flask(__name__)
 
@@ -56,27 +55,9 @@ def predict():
             'Predicted Sales ($)': predictions
         })
 
-        csv = df_predictions.to_csv(index=False)
-        buffer = BytesIO()
-        buffer.write(csv.encode('utf-8'))
-        buffer.seek(0)
-
-        return send_file(buffer, mimetype='text/csv', as_attachment=True, download_name='sales_forecast.csv')
+        return render_template('forecast.html', tables=[df_predictions.to_html(classes='data', header=True, index=False)])
     except Exception as e:
         return str(e)
-
-@app.route('/visualize', methods=['POST'])
-def visualize():
-    file = request.files['file']
-    if file:
-        df = pd.read_csv(file)
-        if 'Month' in df.columns and 'Predicted Sales ($)' in df.columns:
-            df['Month'] = pd.to_datetime(df['Month'])
-            plot_html = create_forecast_plot(df['Predicted Sales ($)'], df['Month'].iloc[0])
-            return render_template('visualize.html', plot=plot_html)
-        else:
-            return 'Invalid file format. Ensure it contains "Month" and "Predicted Sales ($)" columns.'
-    return 'No file uploaded.'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000, debug=True)
