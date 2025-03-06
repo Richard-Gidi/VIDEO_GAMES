@@ -7,7 +7,7 @@ import os
 app = Flask(__name__)
 
 # Load ARIMA model
-arima_model = joblib.load('models/arima_model.pkl')
+arima_model = joblib.load('models/holt_winters_model.pkl')
 
 # Function to create forecast
 def generate_forecast(start_date, months):
