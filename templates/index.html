@@ -4,7 +4,7 @@
     <title>Video Game Sales Forecast</title>
 </head>
 <body>
-    <h1> Video Game Sales Prediction</h1>
+    <h1>Video Game Sales Prediction</h1>
     <form action="/predict" method="post">
         <label for="model">Select Model:</label>
         <select name="model" id="model">
@@ -22,20 +22,9 @@
         <button type="submit">Generate Forecast</button>
     </form>
 
-    {% if predictions %}
+    {% if tables %}
     <h2>📊 Forecast Results</h2>
-    <table border="1">
-        <tr>
-            <th>Month</th>
-            <th>Predicted Sales ($)</th>
-        </tr>
-        {% for month, sales in predictions %}
-        <tr>
-            <td>{{ month }}</td>
-            <td>{{ sales }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    {{ tables|safe }}
     <br>
     <a href="/">🔙 Go Back</a>
     {% endif %}
