@@ -55,7 +55,7 @@ def predict():
             'Predicted Sales ($)': predictions
         })
 
-        return render_template('forecast.html', tables=[df_predictions.to_html(classes='data', header=True, index=False)])
+        return render_template('index.html', tables=[df_predictions.to_html(classes='data', header=True, index=False)])
     except Exception as e:
         return str(e)
 
