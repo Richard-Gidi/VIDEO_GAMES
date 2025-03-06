@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales Forecast Results</title>
+</head>
+<body>
+    <h1>📊 Forecast Results</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Predicted Sales ($)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for month, sales in forecast %}
+            <tr>
+                <td>{{ month }}</td>
+                <td>{{ sales }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="/">🔙 Go Back</a>
+</body>
+</html>
