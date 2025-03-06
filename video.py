@@ -7,9 +7,9 @@ from datetime import datetime, timedelta
 # Load models
 models = {
     'ARIMA': joblib.load('models/arima_model.pkl'),
-    'LSTM': joblib.load('models/lstm_model.pkl'),
+    'SES': joblib.load('models/ses_model.pkl'),
     "Holt-Winters": joblib.load('models/holt_winters_model.pkl'),
-    'Prophet': joblib.load('models/prophet_model.pkl')
+    'Prophet': joblib.load('models/prophet_data.pkl')
 }
 
 # Set page configuration
