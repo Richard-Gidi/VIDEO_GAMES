@@ -41,6 +41,26 @@ def create_forecast_plot(predictions, start_date):
     )
     return fig
 
+# Function to generate forecast analysis
+def generate_forecast_analysis(predictions):
+    analysis = """
+    **Forecast Analysis:**
+
+    - **Average Predicted Sales:** ${:.2f}
+    - **Highest Predicted Sales:** ${:.2f} (Month: {})
+    - **Lowest Predicted Sales:** ${:.2f} (Month: {})
+    - **Total Predicted Sales:** ${:.2f}
+    
+    The forecast suggests a trend where sales {} over the forecast period.
+    """.format(
+        sum(predictions) / len(predictions),
+        max(predictions), predictions.index(max(predictions)) + 1,
+        min(predictions), predictions.index(min(predictions)) + 1,
+        sum(predictions),
+        "increase" if predictions[-1] > predictions[0] else "decrease"
+    )
+    return analysis
+
 # Prediction menu
 if menu == "Prediction":
     st.title("🎮🕹️✨ Video Game Sales Prediction")
@@ -64,6 +84,10 @@ if menu == "Prediction":
 
             csv = df_predictions.to_csv(index=False).encode('utf-8')
             st.download_button("📥 Download Forecast", data=csv, file_name='sales_forecast.csv', mime='text/csv')
+
+            # Generate and display forecast analysis
+            analysis = generate_forecast_analysis(predictions)
+            st.markdown(analysis)
         except Exception as e:
             st.error(f"Error generating forecast: {str(e)}")
 
@@ -80,4 +104,3 @@ elif menu == "Visualization":
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.error("Invalid file format. Ensure it contains 'Month' and 'Predicted Sales ($)' columns.")
-
