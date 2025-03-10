@@ -42,20 +42,21 @@ def create_forecast_plot(predictions, start_date):
     return fig
 
 # Function to generate forecast analysis
-def generate_forecast_analysis(predictions):
+def generate_forecast_analysis(predictions, start_date):
+    months = [(start_date + timedelta(days=30 * i)).strftime('%B %Y') for i in range(len(predictions))]
     analysis = """
     **Forecast Analysis:**
 
-    - **Average Predicted Sales:** ${:.2f}
-    - **Highest Predicted Sales:** ${:.2f} (Month: {})
-    - **Lowest Predicted Sales:** ${:.2f} (Month: {})
-    - **Total Predicted Sales:** ${:.2f}
+    - **Average Predicted Sales:** ${:,.2f}
+    - **Highest Predicted Sales:** ${:,.2f} (Month: {})
+    - **Lowest Predicted Sales:** ${:,.2f} (Month: {})
+    - **Total Predicted Sales:** ${:,.2f}
     
     The forecast suggests a trend where sales {} over the forecast period.
     """.format(
         sum(predictions) / len(predictions),
-        max(predictions), predictions.index(max(predictions)) + 1,
-        min(predictions), predictions.index(min(predictions)) + 1,
+        max(predictions), months[predictions.index(max(predictions))],
+        min(predictions), months[predictions.index(min(predictions))],
         sum(predictions),
         "increase" if predictions[-1] > predictions[0] else "decrease"
     )
@@ -84,10 +85,6 @@ if menu == "Prediction":
 
             csv = df_predictions.to_csv(index=False).encode('utf-8')
             st.download_button("📥 Download Forecast", data=csv, file_name='sales_forecast.csv', mime='text/csv')
-
-            # Generate and display forecast analysis
-            analysis = generate_forecast_analysis(predictions)
-            st.markdown(analysis)
         except Exception as e:
             st.error(f"Error generating forecast: {str(e)}")
 
@@ -102,5 +99,9 @@ elif menu == "Visualization":
             df['Month'] = pd.to_datetime(df['Month'])
             fig = create_forecast_plot(df['Predicted Sales ($)'], df['Month'].iloc[0])
             st.plotly_chart(fig, use_container_width=True)
+
+            # Generate and display forecast analysis
+            analysis = generate_forecast_analysis(df['Predicted Sales ($)'].tolist(), df['Month'].iloc[0])
+            st.markdown(analysis)
         else:
             st.error("Invalid file format. Ensure it contains 'Month' and 'Predicted Sales ($)' columns.")
